@@ -15,8 +15,7 @@ class ApiController extends Controller
         );
 
         $codelist = rest_Code::getCodes();
-        $this->set('todo', $TDlist);
-        $this->set('codelist', $codelist);
+        helper_common::dump($codelist);
     }
 
     public function infoAction()

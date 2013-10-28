@@ -23,35 +23,17 @@ class db_Cache
      * @param string $cacheSys
      * @return db_Cache
      */
-    public static function instance($cachehost = 0, $cacheport = 0, $cacheType = 'memcached', $cacheSys = '')
+    public static function instance()
     {
         if (self::$self == NULL) {
-            self::$self = new db_Cache($cacheSys, $cacheType, $cachehost, $cacheport);
+            self::$self = new db_Cache();
         }
         return self::$self;
     }
 
-    public function __construct($cacheSys, $cacheType, $cachehost, $cacheport)
+    public function __construct()
     {
-        switch ($cacheType) {
-            case 'memcached':
-                if ($cacheSys == 'sae'|| function_exists('saeAutoLoader')) {
-                    $this->cache = memcache_init();
-                } else {
-                    $this->cache = new Memcached();
-                    $a           = $this->cache->addServer($cachehost, $cacheport);
-                    if ($a == FALSE) {
-                        echo '<pre><b>memcached Connection failed.  please check the *.ini cache</b></pre>';
-                        die;
-                    }
-                }
-                break;
-            case 'redis':
-
-                break;
-            default:
-                ;
-        }
+        $this->cache = cache_contect::cache();
     }
 
     /**
@@ -63,8 +45,6 @@ class db_Cache
      */
     public function set($key, $value, $lifetime = '60')
     {
-        if ($value === FALSE) return FALSE;
-        if ($this->debug) var_dump('cache set: '.$key,$value);
         return $this->cache->set($key, $value, $lifetime);
     }
 
@@ -76,7 +56,6 @@ class db_Cache
     public function get($Key)
     {
         $value = $this->cache->get($Key);
-        if ($this->debug) var_dump('cache get: '.$Key,$value);
         return $value;
     }
 
@@ -95,6 +74,6 @@ class db_Cache
      */
     public function close()
     {
-        $this->cache->quit();
+        $this->cache->close();
     }
 }

@@ -22,11 +22,11 @@ class db_Mysql
     private $_cache_if_have = FALSE;
     private $_cache_key = FALSE;
 
-    private function __construct($dbhost, $dbport, $username, $password, $dbname, $dbcharset, $cachesys, $cachetype, $cachehost, $cacheport)
+    private function __construct($dbhost, $dbport, $username, $password, $dbname, $dbcharset)
     {
 
         try {
-            if ($cachesys == 'sae') {
+            if (function_exists('saeAutoLoader')) {
                 $dbhost_port = $dbhost . ':' . $dbport;
             } else {
                 $dbhost_port = $dbhost;
@@ -38,7 +38,7 @@ class db_Mysql
             die();
         }
 
-        $this->_cache = db_Cache::instance($cachehost, $cacheport, $cachetype, $cachesys);
+        $this->_cache = db_Cache::instance();
         if (!$this->_cache) {
 
         }
@@ -50,7 +50,7 @@ class db_Mysql
      * @param \OB|string $cache_config
      * @return db_Mysql
      */
-    static public function getInstance($db_config = '', $cache_config = '')
+    static public function getInstance($db_config = '')
     {
 
         $_db_host    = $db_config->host;
@@ -60,15 +60,11 @@ class db_Mysql
         $_db_usr     = $db_config->usr;
         $_db_pwd     = $db_config->pwd;
 
-        $_cache_system = $cache_config->system;
-        $_cache_type   = $cache_config->type;
-        $_cache_host   = $cache_config->host;
-        $_cache_port   = $cache_config->port;
 
-        $idx = md5($_db_host . $_db_name . $_cache_host . $_cache_port);
+        $idx = md5($_db_host . $_db_name);
 
         if (!isset(self::$_instances[$idx])) {
-            self::$_instances[$idx] = new self($_db_host, $_db_port, $_db_usr, $_db_pwd, $_db_name, $_db_charset, $_cache_system, $_cache_type, $_cache_host, $_cache_port);
+            self::$_instances[$idx] = new self($_db_host, $_db_port, $_db_usr, $_db_pwd, $_db_name, $_db_charset);
         }
         return self::$_instances[$idx];
     }
