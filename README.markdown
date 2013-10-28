@@ -1,7 +1,5 @@
 ##What is Yaf?
-Yaf is a pretty new PHP framework. To quote the introduction page:
-"The Yet Another Framework(Yaf) extension is a PHP framework, used for developing web application, It provides OO interfaces to PHPer for developing web application. Yaf require PHP version greater than 5.2.1, and could not run with early version of PHP. "
-
+test push
 
 ##Cool! Where can I find more info?
 Try looking at the [Yaf page on php.net](http://www.php.net/manual/en/book.yaf.php)
