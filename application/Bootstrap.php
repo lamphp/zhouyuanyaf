@@ -32,14 +32,16 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
          }
      }
 
+    public function _initCache()
+    {
+        cache_contect::cache();
+    }
+
     public function _initDb()
     {
         db_contect::db();
     }
 
-    public function _initCache()
-    {
-        cache_contect::cache();
-    }
+
 
 }
