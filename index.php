@@ -1,6 +1,7 @@
 <?php
 
 define("APPLICATION_PATH",  dirname(__FILE__));
+
 //if(!extension_loaded("yaf")){
 //    include(APPLICATION_PATH.'/framework/loader.php');
 //}

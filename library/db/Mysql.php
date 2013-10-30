@@ -38,7 +38,7 @@ class db_Mysql
             die();
         }
 
-        $this->_cache = db_Cache::instance();
+        $this->_cache = cache_contect::cache();
         if (!$this->_cache) {
 
         }

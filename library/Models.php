@@ -61,6 +61,7 @@ class Models
     }
 
     /**
+     * demo $some_Model->count( array('id' => 1));
      * 获得符合条件的数据数量
      * @param $where
      * @return array
@@ -77,6 +78,7 @@ class Models
     }
 
     /**
+     * demo $some_Model->getAll('*', array('id' => 1));
      * 依条件获取所有数据
      * @param              $colume
      * @param string|array $where
