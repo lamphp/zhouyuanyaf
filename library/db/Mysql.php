@@ -176,12 +176,15 @@ class db_Mysql
      */
     function query($sql, $values = array(), $type = '')
     {
+
         if ($this->_cache_on && $this->_update_cache == FALSE) {
             if (!$this->_cache_key) {
                 $this->_cache_key = $this->cache_made_key($sql, $values) . $type;
             }
 
+
             $if_have_cache = $this->_cache->get($this->_cache_key);
+
 
             if ($if_have_cache) {
                 $this->_cache_if_have = TRUE;
@@ -213,10 +216,12 @@ class db_Mysql
             print_r($this->_cache_key);
             echo '<br />';
         }
-
         return $bool;
     }
 
+    function getLastSql(){
+        return $this->_sql;
+    }
     /**
      * 执行查询
      * @see db_DbInterface::getAll()
@@ -231,12 +236,12 @@ class db_Mysql
 
         $result = $this->_sth->fetchAll($fetch_style);
 
-        if ($this->_cache_on || $this->_update_cache) {
+        if ($this->_cache_on|| $this->_update_cache) {
             if (!$this->_cache_key) {
                 $this->_cache_key = $this->cache_made_key($sql, $values) . '_all';
             }
 
-            $this->_cache->set($this->_cache_key, $result, $this->_cache_time);
+           $a =  $this->_cache->set($this->_cache_key, $result, $this->_cache_time);
         }
 
         $this->_cache_key = FALSE;

@@ -51,6 +51,7 @@ class cache_memached {
      */
     public function set($key, $value, $lifetime = '60')
     {
+
         if ($value === FALSE || $this->isOpen == 0) return FALSE;
         if ($this->debug) var_dump('cache set: '.$key,$value);
         return $this->cache->set($key, $value, $lifetime);
@@ -63,7 +64,9 @@ class cache_memached {
      */
     public function get($Key)
     {
+
         if ($this->isOpen == 0) return FALSE;
+        //$this->cache->set('df6f21feadb8f4086b4a2b88704d27c9_all',"sssss");
         $value = $this->cache->get($Key);
         if ($this->debug) var_dump('cache get: '.$Key,$value);
         return $value;

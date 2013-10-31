@@ -16,9 +16,30 @@ class IndexController extends Controller
    public function indexAction()
    {
 
-      $this->_view->word = "hello world";
+      //$this->_view->word = "hello world";
 
-      //phpinfo();
+       Yaf_Dispatcher::getInstance()->disableView();//关闭其自动渲染
+        $this->cache = db_Cache::instance();
+          //$this->cache->set("aaa","测试褚润");
+         //$a =  $this->cache->get("aaa");
+//           helper_common::dump($a);
+        $user = models_user::getInstance();
+        $result = array();
+
+        $sql = "SELECT * FROM pw_users;";
+        $this->db->debug();
+       //helper_common::dump($db->close());
+        //$this->db->cache_on();
+       //$this->db->update_cache();
+       //$this->db->update_cache('scaffold_config_' . md5($sql));
+       //$this->db->cache_key('scaffold_config_' . md5($sql));
+        //$this->db->cache_off();
+        $tmp = $user->getAll("*",'1=1');
+       //
+       helper_common::dump($tmp);
+
+
+
 
    }
 

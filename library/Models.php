@@ -68,10 +68,10 @@ class Models
      */
     public function count($where)
     {
-        $this->db->cache_on(10);
+       // $this->db->cache_on(10);
         $_where = self::where($where);
         $back   = $this->db->getRow('select count(1) as count from ' . $this->_table . $_where['where_key'], $_where['where_value']);
-        $this->db->cache_off();
+        //$this->db->cache_off();
         if (is_array($back) && count($back) > 0) {
             return $back['count'];
         }
@@ -90,12 +90,12 @@ class Models
      */
     public function getAll($colume, $where, $orderby = 'primary', $start = 0, $limit = 10)
     {
-        $this->db->cache_on();
+        //$this->db->cache_on();
         $_where   = self::where($where);
         $_orderby = self::orderby($orderby);
         $_colume  = self::colume($colume);
         $back     = $this->db->getAll('select ' . $_colume . ' from ' . $this->_table . $_where['where_key'] . $_orderby . " limit {$start},{$limit}", $_where['where_value']);
-        $this->db->cache_off();
+        //$this->db->cache_off();
         if (is_array($back) && count($back) > 0) {
             return $back;
         }
@@ -111,12 +111,12 @@ class Models
      */
     public function getRow($colume, $where, $orderby = 'primary')
     {
-        $this->db->cache_on();
+        //$this->db->cache_on();
         $_where   = self::where($where);
         $_orderby = self::orderby($orderby);
         $_colume  = self::colume($colume);
         $back     = $this->db->getRow('select ' . $_colume . ' from ' . $this->_table . $_where['where_key'] . $_orderby . " limit 1", $_where['where_value']);
-        $this->db->cache_off();
+       // $this->db->cache_off();
         if (is_array($back) && count($back) > 0) {
             return $back;
         }
